@@ -4,6 +4,8 @@ import { UserModel } from "../models";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import NextAuth from "next-auth";
+import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import mongoClient from "../db/db-client";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
@@ -34,6 +36,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       },
     }),
   ],
+  adapter: MongoDBAdapter(mongoClient),
   session: {
     strategy: "jwt",
   },
